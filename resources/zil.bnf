@@ -1,7 +1,15 @@
-ROOM = <'<'> ws <'ROOM'> ws label ws FEATURE* ws <'>'> 
+DEFINITIONS = (ROOM | OBJECT)*
+
+ROOM = la <'ROOM'> ws label FEATURE* ra
 <FEATURE> = LOC | DESC | EXIT | ACTION | FLAGS | GLOBAL | THINGS
+
+OBJECT = la <'OBJECT'> ws label OFEATURE* ra
+<OFEATURE> = LOC | SYNONYM | ADJECTIVE | DESC | FLAGS | ACTION | FDESC | LDESC | SIZE
+
 LOC = lp <'LOC'> ws label rp
 DESC = lp <'DESC'> ws string rp
+FDESC = lp <'FDESC'> ws string rp
+LDESC = lp <'LDESC'> ws string rp
 EXIT = lp DIRECTION ws ( <'TO'> ws label [IF-STATEMENT] | PER ) ws rp
 PER = <'PER'> ws FUNCTION-LABEL 
 IF-STATEMENT = <'IF'> ws label <'ELSE'> ws string
@@ -12,8 +20,16 @@ GLOBAL = lp <'GLOBAL'> ws label+ rp
 THINGS = lp <'THINGS'> ws THINGSET label+ rp
 THINGSET = <'<'> ws label* <'>'> ws
 FUNCTION-LABEL = label
+SYNONYM = lp <'SYNONYM'> ws label* rp
+ADJECTIVE = lp <'ADJECTIVE'> ws label* rp
+SIZE = lp <'SIZE'> ws int rp
+
+
 <lp> = <'('> ws
 <rp> = <')'> ws
+<la> = <'<'> ws
+<ra> = <'>'> ws
 <label> = #"[\-_A-Z]+" ws
 <string> = <'"'> #'[^"]*' <'"'> ws
+<int> = #"[1-9]\d*"
 <ws> = <#'\s'*>
