@@ -1,4 +1,6 @@
-(ns ^{:doc "Parsing ZIL files"
+(ns ^{:doc "Parsing ZIL files.
+      User command parsing based on the description at:
+      https://github.com/heasm66/mdlzork/blob/master/mdlzork_791211/original_source/ppaper.txt"
       :author "Paula Gearon"}
   ziggy.zparser
   (:require [instaparse.core :as insta]
